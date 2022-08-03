@@ -1,7 +1,7 @@
 import {
   ref, Ref, computed, ComputedRef,
 } from 'vue';
-import type { ServerOptions } from '../types/main';
+import type { ServerOptions } from '@/types/main';
 
 export default function usePagination(
   isServerSideMode: ComputedRef<boolean>,

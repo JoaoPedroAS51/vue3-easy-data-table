@@ -1,5 +1,5 @@
 import { ref, Ref, computed } from 'vue';
-import type { ServerOptions } from '../types/main';
+import type { ServerOptions } from '@/types/main';
 
 export default function useRows(
   isServerSideMode: Ref<boolean>,

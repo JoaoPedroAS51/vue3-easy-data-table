@@ -13,8 +13,13 @@
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "types/table.d.ts"],
-  "path": {
-    "@src/*": ["src/*"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "types/**/*.d.ts", "types/**/*.ts"],
+  "paths": {
+    "@/*": [
+      "src/*"
+    ],
+    "#/*": [
+      "types/*"
+    ]
   },
 }

@@ -246,30 +246,30 @@ import {
   PropType,
 } from 'vue';
 
-import MultipleSelectCheckBox from '../../MultipleSelectCheckBox/src/MultipleSelectCheckBox.vue';
-import SingleSelectCheckBox from '../../SingleSelectCheckBox/src/SingleSelectCheckBox.vue';
-import RowsSelector from '../../RowsSelector/src/RowsSelector.vue';
-import Loading from '../../Loading/src/Loading.vue';
-import LoadingLine from '../../LoadingLine/src/LoadingLine.vue';
-import ButtonsPagination from '../../ButtonsPagination/src/ButtonsPagination.vue';
-import PaginationArrows from '../../PaginationArrows/src/PaginationArrows.vue';
+import MultipleSelectCheckBox from '@/components/MultipleSelectCheckBox/src/MultipleSelectCheckBox.vue';
+import SingleSelectCheckBox from '@/components/SingleSelectCheckBox/src/SingleSelectCheckBox.vue';
+import RowsSelector from '@/components/RowsSelector/src/RowsSelector.vue';
+import Loading from '@/components/Loading/src/Loading.vue';
+import LoadingLine from '@/components/LoadingLine/src/LoadingLine.vue';
+import ButtonsPagination from '@/components/ButtonsPagination/src/ButtonsPagination.vue';
+import PaginationArrows from '@/components/PaginationArrows/src/PaginationArrows.vue';
 
-import useClickRow from '../../../hooks/useClickRow';
-import useExpandableRow from '../../../hooks/useExpandableRow';
-import useFixedColumn from '../../../hooks/useFixedColumn';
-import useHeaders from '../../../hooks/useHeaders';
-import usePageItems from '../../../hooks/usePageItems';
-import usePagination from '../../../hooks/usePagination';
-import useRows from '../../../hooks/useRows';
-import useServerOptions from '../../../hooks/useServerOptions';
-import useTotalItems from '../../../hooks/useTotalItems';
+import useClickRow from '@/hooks/useClickRow';
+import useExpandableRow from '@/hooks/useExpandableRow';
+import useFixedColumn from '@/hooks/useFixedColumn';
+import useHeaders from '@/hooks/useHeaders';
+import usePageItems from '@/hooks/usePageItems';
+import usePagination from '@/hooks/usePagination';
+import useRows from '@/hooks/useRows';
+import useServerOptions from '@/hooks/useServerOptions';
+import useTotalItems from '@/hooks/useTotalItems';
 
-import type { Header, Item } from '../../../types/main';
-import type { HeaderForRender } from '../../../types/internal';
+import type { Header, Item } from '@/types/main';
+import type { HeaderForRender } from '@/types/internal';
 
 // eslint-disable-next-line import/extensions
-import { generateColumnContent } from '../../../utils';
-import propsWithDefault from '../../../propsWithDefault';
+import { generateColumnContent } from '@/utils';
+import propsWithDefault from '@/propsWithDefault';
 
 const props = defineProps({
   ...propsWithDefault,
@@ -562,7 +562,7 @@ defineExpose({
 </style>
 
 <style lang="scss" scoped>
-@import '../../../scss/vue3-easy-data-table.scss';
+@import '@/scss/vue3-easy-data-table.scss';
 
 .vue3-easy-data-table__main.fixed-height {
   height: v-bind(tableHeightPx);

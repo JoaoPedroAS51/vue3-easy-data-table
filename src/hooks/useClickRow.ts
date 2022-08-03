@@ -1,6 +1,6 @@
 import { Ref, ComputedRef } from 'vue';
-import type { Item } from '../types/main';
-import type { EmitsEventName } from '../types/internal';
+import type { Item } from '@/types/main';
+import type { EmitsEventName } from '@/types/internal';
 
 export default function useClickRow(
   isMultipleSelectable: ComputedRef<boolean>,

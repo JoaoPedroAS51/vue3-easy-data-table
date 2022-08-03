@@ -1,8 +1,8 @@
 import {
   ref, Ref, computed, ComputedRef, WritableComputedRef,
 } from 'vue';
-import type { Header, SortType } from '../types/main';
-import type { ServerOptionsComputed, HeaderForRender, ClientSortOptions } from '../types/internal';
+import type { Header, SortType } from '@/types/main';
+import type { ServerOptionsComputed, HeaderForRender, ClientSortOptions } from '@/types/internal';
 
 export default function useHeaders(
   checkboxColumnWidth: Ref<number>,

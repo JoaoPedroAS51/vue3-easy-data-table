@@ -1,5 +1,5 @@
 import { Ref, computed } from 'vue';
-import type { HeaderForRender } from '../types/internal';
+import type { HeaderForRender } from '@/types/internal';
 
 type FixedColumnsInfo = {
   value: string,

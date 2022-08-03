@@ -43,8 +43,17 @@ export default defineConfig({
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    alias: {
-      '@src': resolve(__dirname, 'src'),
-    },
+    alias: [
+      // @/xxxx => src/xxxx
+      {
+        find: /^@\/(.+)/,
+        replacement: `${resolve(__dirname, 'src')}/$1`,
+      },
+      // #/xxxx => types/xxxx
+      {
+        find: /^#\/(.+)/,
+        replacement: `${resolve(__dirname, 'types')}/$1`,
+      },
+    ],
   },
 });

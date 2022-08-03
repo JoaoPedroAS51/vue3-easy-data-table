@@ -1,6 +1,6 @@
 import { Ref, computed } from 'vue';
-import type { SortType, ServerOptions } from '../types/main';
-import type { ServerOptionsComputed, EmitsEventName } from '../types/internal';
+import type { SortType, ServerOptions } from '@/types/main';
+import type { ServerOptionsComputed, EmitsEventName } from '@/types/internal';
 
 export default function useServerOptions(
   serverOptions: Ref<ServerOptions | null>,

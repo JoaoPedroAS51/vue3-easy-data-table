@@ -31,7 +31,7 @@ const themeColor = inject('themeColor');
 </script>
 
 <style lang="scss" scoped>
-@import '../../../scss/checbox.scss';
+@import '@/scss/checbox.scss';
 
 $checkbox-checked-color: v-bind(themeColor);
 

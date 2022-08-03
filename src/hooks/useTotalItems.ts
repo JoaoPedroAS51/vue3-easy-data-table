@@ -1,9 +1,9 @@
 import {
   Ref, computed, ComputedRef,
 } from 'vue';
-import type { Item, FilterOption } from '../types/main';
-import type { ClientSortOptions, EmitsEventName } from '../types/internal';
-import { getItemValue } from '../utils';
+import type { Item, FilterOption } from '@/types/main';
+import type { ClientSortOptions, EmitsEventName } from '@/types/internal';
+import { getItemValue } from '@/utils';
 
 export default function useTotalItems(
   clientSortOptions: Ref<ClientSortOptions | null>,

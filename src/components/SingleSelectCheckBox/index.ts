@@ -1,4 +1,4 @@
-import { withInstall } from '../../helpers';
+import { withInstall } from '@/helpers';
 
 import SingleSelectCheckBox from './src/SingleSelectCheckBox.vue';
 

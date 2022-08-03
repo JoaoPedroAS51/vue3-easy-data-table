@@ -1,4 +1,4 @@
-import type { Item } from './types/main';
+import type { Item } from '@/types/main';
 
 export function getItemValue(column: string, item: Item) {
   if (column.includes('.')) {

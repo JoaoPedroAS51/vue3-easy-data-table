@@ -1,24 +1,30 @@
 <template>
-  <div class="easy-checkbox" @click.stop.prevent="emits('change')">
-    <input type="checkbox" :checked="checked" />
+  <div
+    class="easy-checkbox"
+    @click.stop.prevent="emits('change')"
+  >
+    <input
+      type="checkbox"
+      :checked="checked"
+    />
     <label for="checbox" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject } from 'vue';
 
-const emits = defineEmits(['change'])
+const emits = defineEmits(['change']);
 
 defineProps({
   checked: { type: Boolean, required: true },
-})
+});
 
-const themeColor = inject('themeColor')
+const themeColor = inject('themeColor');
 </script>
 
 <style lang="scss" scoped>
-@import '../../../scss/checbox.scss';
+@import '@/scss/checbox.scss';
 
 $checkbox-checked-color: v-bind(themeColor);
 

@@ -1,8 +1,8 @@
 import {
   Ref, computed, ComputedRef, WritableComputedRef,
 } from 'vue';
-import type { Item } from '../types/main';
-import type { MultipleSelectStatus } from '../types/internal';
+import type { Item } from '@/types/main';
+import type { MultipleSelectStatus } from '@/types/internal';
 
 export default function usePageItems(
   currentPaginationNumber: Ref<number>,

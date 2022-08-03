@@ -1,6 +1,6 @@
 import { ref, Ref } from 'vue';
-import type { Item } from '../types/main';
-import type { EmitsEventName } from '../types/internal';
+import type { Item } from '@/types/main';
+import type { EmitsEventName } from '@/types/internal';
 
 export default function useExpandableRow(
   items: Ref<Item[]>,
