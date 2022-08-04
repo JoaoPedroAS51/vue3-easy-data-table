@@ -65,18 +65,10 @@
         </span>
       </div>
       <div class="customize-pagination">
-        <button
-          class="prev-page"
-          :disabled="isFirstPage"
-          @click="prevPage"
-        >
+        <button class="prev-page" :disabled="isFirstPage" @click="prevPage">
           prev page
         </button>
-        <button
-          class="next-page"
-          :disabled="isLastPage"
-          @click="nextPage"
-        >
+        <button class="next-page" :disabled="isLastPage" @click="nextPage">
           next page
         </button>
       </div>
@@ -85,19 +77,25 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, ref, computed, watch, onMounted, Ref } from 'vue'
 import {
-  defineComponent, ref, computed, watch, onMounted, Ref,
-} from 'vue';
-import {
-  Header, Item, ServerOptions, BodyItemClassNameFunction, BodyRowClassNameFunction, HeaderItemClassNameFunction,
-} from '../types/main';
-import DataTable from '../components/DataTable.vue';
-import { mockClientItems, mockServerItems } from '../mock';
+  Header,
+  Item,
+  ServerOptions,
+  BodyItemClassNameFunction,
+  BodyRowClassNameFunction,
+  HeaderItemClassNameFunction,
+} from '../types/main'
+import DataTable from '../components/DataTable/src/DataTable.vue'
+import { mockClientItems, mockServerItems } from '../mock'
 
 export default defineComponent({
   components: { DataTable },
   setup() {
-    const bodyRowClassName: BodyRowClassNameFunction = (item: Item, index: number) => 'bg-white';
+    const bodyRowClassName: BodyRowClassNameFunction = (
+      item: Item,
+      index: number
+    ) => 'bg-white'
 
     // const headers: Header[] = [
     //   { text: 'Name', value: 'name', fixed: true, width: 200 },
@@ -110,83 +108,101 @@ export default defineComponent({
     // ];
     const headers: Header[] = [
       {
-        text: 'Name', value: 'name', width: 150, fixed: true,
+        text: 'Name',
+        value: 'name',
+        width: 150,
+        fixed: true,
       },
       { text: 'Address', value: 'address', width: 200 },
       {
-        text: 'Height', value: 'height', sortable: true, width: 200,
+        text: 'Height',
+        value: 'height',
+        sortable: true,
+        width: 200,
       },
       {
-        text: 'Weight', value: 'weight', sortable: true, width: 200,
+        text: 'Weight',
+        value: 'weight',
+        sortable: true,
+        width: 200,
       },
       {
-        text: 'Age', value: 'age', sortable: true, width: 200,
+        text: 'Age',
+        value: 'age',
+        sortable: true,
+        width: 200,
       },
       { text: 'Favourite sport', value: 'favouriteSport', width: 200 },
       { text: 'Favourite fruits', value: 'favouriteFruits', width: 200 },
-    ];
-    const items = ref<Item[]>([]);
-    const itemsSelected = ref<Item[]>([items.value[0]]);
-    const serverItemsLength = ref(0);
+    ]
+    const items = ref<Item[]>([])
+    const itemsSelected = ref<Item[]>([items.value[0]])
+    const serverItemsLength = ref(0)
     const serverOptions = ref<ServerOptions>({
       page: 1,
       rowsPerPage: 10,
-    });
+    })
 
-    const loading = ref(false);
+    const loading = ref(false)
 
     const loadFromServer = async () => {
-      loading.value = true;
-      const {
-        serverCurrentPageItems,
-        serverTotalItemsLength,
-      } = await mockServerItems(serverOptions.value, 101);
-      items.value = serverCurrentPageItems;
-      serverItemsLength.value = serverTotalItemsLength;
-      loading.value = false;
-    };
+      loading.value = true
+      const { serverCurrentPageItems, serverTotalItemsLength } =
+        await mockServerItems(serverOptions.value, 101)
+      items.value = serverCurrentPageItems
+      serverItemsLength.value = serverTotalItemsLength
+      loading.value = false
+    }
 
     // first load when created
-    loadFromServer();
+    loadFromServer()
 
     watch(
       serverOptions,
       () => {
-        console.log(111);
-        loadFromServer();
+        console.log(111)
+        loadFromServer()
       },
-      { deep: true },
-    );
+      { deep: true }
+    )
     // $ref dataTable
-    const dataTable = ref();
+    const dataTable = ref()
     // index related
-    const currentPageFirstIndex = computed(() => dataTable.value?.currentPageFirstIndex);
-    const currentPageLastIndex = computed(() => dataTable.value?.currentPageLastIndex);
-    const clientItemsLength = computed(() => dataTable.value?.clientItemsLength);
+    const currentPageFirstIndex = computed(
+      () => dataTable.value?.currentPageFirstIndex
+    )
+    const currentPageLastIndex = computed(
+      () => dataTable.value?.currentPageLastIndex
+    )
+    const clientItemsLength = computed(() => dataTable.value?.clientItemsLength)
 
-    console.log('dataTable');
-    console.log(dataTable.value);
+    console.log('dataTable')
+    console.log(dataTable.value)
 
     onMounted(() => {
-      console.log('dataTable');
-      console.log(dataTable.value);
-    });
+      console.log('dataTable')
+      console.log(dataTable.value)
+    })
     // pagination related
-    const maxPaginationNumber = computed(() => dataTable.value?.maxPaginationNumber);
-    const currentPaginationNumber = computed(() => dataTable.value?.currentPaginationNumber);
+    const maxPaginationNumber = computed(
+      () => dataTable.value?.maxPaginationNumber
+    )
+    const currentPaginationNumber = computed(
+      () => dataTable.value?.currentPaginationNumber
+    )
 
-    const isFirstPage = computed(() => dataTable.value?.isFirstPage);
-    const isLastPage = computed(() => dataTable.value?.isLastPage);
+    const isFirstPage = computed(() => dataTable.value?.isFirstPage)
+    const isLastPage = computed(() => dataTable.value?.isLastPage)
 
     const nextPage = () => {
-      dataTable.value?.nextPage();
-    };
+      dataTable.value?.nextPage()
+    }
     const prevPage = () => {
-      dataTable.value?.prevPage();
-    };
+      dataTable.value?.prevPage()
+    }
     const updatePage = (paginationNumber: number) => {
-      dataTable.value?.updatePage(paginationNumber);
-    };
+      dataTable.value?.updatePage(paginationNumber)
+    }
 
     return {
       dataTable,
@@ -206,10 +222,9 @@ export default defineComponent({
       prevPage,
       updatePage,
       bodyRowClassName,
-    };
+    }
   },
-
-});
+})
 </script>
 
 <style>

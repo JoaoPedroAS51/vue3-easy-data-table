@@ -12,7 +12,7 @@
         'fixed-height': tableHeight,
         'show-shadow': showShadow,
         'table-fixed': fixedHeaders.length,
-        'hoverable': !noHover,
+        hoverable: !noHover,
         'border-cell': borderCell,
       }"
     >
@@ -42,7 +42,11 @@
               // eslint-disable-next-line max-len
               }, typeof headerItemClassName === 'string' ? headerItemClassName : headerItemClassName(header as Header, index)]"
               :style="getFixedDistance(header.value)"
-              @click.stop="(header.sortable && header.sortType) ? updateSortField(header.value, header.sortType) : null"
+              @click.stop="
+                header.sortable && header.sortType
+                  ? updateSortField(header.value, header.sortType)
+                  : null
+              "
             >
               <MultipleSelectCheckBox
                 v-if="header.text === 'checkbox'"
@@ -69,7 +73,7 @@
                   v-if="header.sortable"
                   :key="header.sortType ? header.sortType : 'none'"
                   class="sortType-icon"
-                  :class="{'desc': header.sortType === 'desc'}"
+                  :class="{ desc: header.sortType === 'desc' }"
                 ></i>
               </span>
             </th>
@@ -78,26 +82,39 @@
         <tbody
           v-if="items.length && headerColumns.length"
           class="vue3-easy-data-table__body"
-          :class="{'row-alternation': alternating}"
+          :class="{ 'row-alternation': alternating }"
         >
           <template
             v-for="(item, index) in pageItems"
             :key="index"
           >
             <tr
-              :class="[{'even-row': (index + 1) % 2 === 0},
-                       typeof bodyRowClassName === 'string' ? bodyRowClassName : bodyRowClassName(item, index)]"
+              :class="[
+                { 'even-row': (index + 1) % 2 === 0 },
+                typeof bodyRowClassName === 'string'
+                  ? bodyRowClassName
+                  : bodyRowClassName(item, index),
+              ]"
               @click="clickRow(item)"
             >
               <td
                 v-for="(column, i) in headerColumns"
                 :key="i"
                 :style="getFixedDistance(column, 'td')"
-                :class="[{
-                  'shadow': column === lastFixedColumn,
-                  'can-expand': column === 'expand',
-                }, typeof bodyItemClassName === 'string' ? bodyItemClassName : bodyItemClassName(column, i)]"
-                @click="column === 'expand' ? updateExpandingItemIndexList(index, item, $event) : null"
+                :class="[
+                  {
+                    shadow: column === lastFixedColumn,
+                    'can-expand': column === 'expand',
+                  },
+                  typeof bodyItemClassName === 'string'
+                    ? bodyItemClassName
+                    : bodyItemClassName(column, i),
+                ]"
+                @click="
+                  column === 'expand'
+                    ? updateExpandingItemIndexList(index, item, $event)
+                    : null
+                "
               >
                 <slot
                   v-if="slots[`item-${column}`]"
@@ -107,7 +124,9 @@
                 <template v-else-if="column === 'expand'">
                   <i
                     class="expand-icon"
-                    :class="{'expanding': expandingItemIndexList.includes(index)}"
+                    :class="{
+                      expanding: expandingItemIndexList.includes(index),
+                    }"
                   />
                 </template>
                 <template v-else-if="column === 'checkbox'">
@@ -123,7 +142,7 @@
             </tr>
             <tr
               v-if="ifHasExpandSlot && expandingItemIndexList.includes(index)"
-              :class="{'even-row': (index + 1) % 2 === 0}"
+              :class="{ 'even-row': (index + 1) % 2 === 0 }"
             >
               <td
                 :colspan="headersForRender.length"
@@ -146,9 +165,7 @@
         v-if="loading"
         class="vue3-easy-data-table__loading"
       >
-        <div
-          class="vue3-easy-data-table__loading-mask "
-        ></div>
+        <div class="vue3-easy-data-table__loading-mask"></div>
         <div class="loading-entity">
           <slot
             v-if="ifHasLoadingSlot"
@@ -219,33 +236,40 @@
 
 <script setup lang="ts">
 import {
-  useSlots, computed, toRefs, ref, watch, provide, onMounted, PropType,
+  useSlots,
+  computed,
+  toRefs,
+  ref,
+  watch,
+  provide,
+  onMounted,
+  PropType,
 } from 'vue';
 
-import MultipleSelectCheckBox from './MultipleSelectCheckBox.vue';
-import SingleSelectCheckBox from './SingleSelectCheckBox.vue';
-import RowsSelector from './RowsSelector.vue';
-import Loading from './Loading.vue';
-import LoadingLine from './LoadingLine.vue';
-import ButtonsPagination from './ButtonsPagination.vue';
-import PaginationArrows from './PaginationArrows.vue';
+import MultipleSelectCheckBox from '../../MultipleSelectCheckBox/src/MultipleSelectCheckBox.vue';
+import SingleSelectCheckBox from '../../SingleSelectCheckBox/src/SingleSelectCheckBox.vue';
+import RowsSelector from '../../RowsSelector/src/RowsSelector.vue';
+import Loading from '../../Loading/src/Loading.vue';
+import LoadingLine from '../../LoadingLine/src/LoadingLine.vue';
+import ButtonsPagination from '../../ButtonsPagination/src/ButtonsPagination.vue';
+import PaginationArrows from '../../PaginationArrows/src/PaginationArrows.vue';
 
-import useClickRow from '../hooks/useClickRow';
-import useExpandableRow from '../hooks/useExpandableRow';
-import useFixedColumn from '../hooks/useFixedColumn';
-import useHeaders from '../hooks/useHeaders';
-import usePageItems from '../hooks/usePageItems';
-import usePagination from '../hooks/usePagination';
-import useRows from '../hooks/useRows';
-import useServerOptions from '../hooks/useServerOptions';
-import useTotalItems from '../hooks/useTotalItems';
+import useClickRow from '../../../hooks/useClickRow';
+import useExpandableRow from '../../../hooks/useExpandableRow';
+import useFixedColumn from '../../../hooks/useFixedColumn';
+import useHeaders from '../../../hooks/useHeaders';
+import usePageItems from '../../../hooks/usePageItems';
+import usePagination from '../../../hooks/usePagination';
+import useRows from '../../../hooks/useRows';
+import useServerOptions from '../../../hooks/useServerOptions';
+import useTotalItems from '../../../hooks/useTotalItems';
 
-import type { Header, Item } from '../types/main';
-import type { HeaderForRender } from '../types/internal';
+import type { Header, Item } from '../../../types/main';
+import type { HeaderForRender } from '../../../types/internal';
 
 // eslint-disable-next-line import/extensions
-import { generateColumnContent } from '../utils';
-import propsWithDefault from '../propsWithDefault';
+import { generateColumnContent } from '../../../utils';
+import propsWithDefault from '../../../propsWithDefault';
 
 const props = defineProps({
   ...propsWithDefault,
@@ -318,7 +342,9 @@ const emits = defineEmits([
   'update:serverOptions',
 ]);
 
-const isMultipleSelectable = computed((): boolean => itemsSelected.value !== null);
+const isMultipleSelectable = computed(
+  (): boolean => itemsSelected.value !== null,
+);
 const isServerSideMode = computed((): boolean => serverOptions.value !== null);
 
 const {
@@ -326,16 +352,10 @@ const {
   updateServerOptionsPage,
   updateServerOptionsSort,
   updateServerOptionsRowsPerPage,
-} = useServerOptions(
-  serverOptions,
-  emits,
-);
+} = useServerOptions(serverOptions, emits);
 
 const {
-  clientSortOptions,
-  headerColumns,
-  headersForRender,
-  updateSortField,
+  clientSortOptions, headerColumns, headersForRender, updateSortField,
 } = useHeaders(
   checkboxColumnWidth,
   expandColumnWidth,
@@ -355,10 +375,7 @@ const {
   updateServerOptionsSort,
 );
 
-const {
-  rowsItemsComputed,
-  rowsPerPageRef,
-} = useRows(
+const { rowsItemsComputed, rowsPerPageRef } = useRows(
   isServerSideMode,
   rowsItems,
   serverOptions,
@@ -427,21 +444,9 @@ const {
   emits,
 );
 
-const {
-  fixedHeaders,
-  lastFixedColumn,
-  fixedColumnsInfos,
-} = useFixedColumn(
-  headersForRender,
-);
+const { fixedHeaders, lastFixedColumn, fixedColumnsInfos } = useFixedColumn(headersForRender);
 
-const {
-  clickRow,
-} = useClickRow(
-  isMultipleSelectable,
-  showIndex,
-  emits,
-);
+const { clickRow } = useClickRow(isMultipleSelectable, showIndex, emits);
 
 // template style generation function
 const getColStyle = (header: HeaderForRender): string | undefined => {
@@ -452,9 +457,13 @@ const getColStyle = (header: HeaderForRender): string | undefined => {
 
 const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
   if (!fixedHeaders.value.length) return undefined;
-  const columInfo = fixedColumnsInfos.value.find((info) => info.value === column);
+  const columInfo = fixedColumnsInfos.value.find(
+    (info) => info.value === column,
+  );
   if (columInfo) {
-    return `left: ${columInfo.distance}px;z-index: ${type === 'th' ? 3 : 1};position: sticky;`;
+    return `left: ${columInfo.distance}px;z-index: ${
+      type === 'th' ? 3 : 1
+    };position: sticky;`;
   }
   return undefined;
 };
@@ -469,9 +478,13 @@ watch(loading, (newVal, oldVal) => {
   }
 });
 
-watch(items, () => {
-  if (!isServerSideMode.value) updatePage(1);
-}, { deep: true });
+watch(
+  items,
+  () => {
+    if (!isServerSideMode.value) updatePage(1);
+  },
+  { deep: true },
+);
 
 watch(rowsPerPageRef, (value) => {
   if (!isServerSideMode.value) {
@@ -500,56 +513,56 @@ defineExpose({
 </script>
 
 <style>
-  :root {
-    /*table*/
-    --easy-table-border: 1px solid #e0e0e0;
-    --easy-table-row-border: 1px solid #e0e0e0;
-    /*header-row*/
-    --easy-table-header-font-size: 12px;
-    --easy-table-header-height: 36px;
-    --easy-table-header-font-color: #373737;
-    --easy-table-header-background-color: #fff;
-    /*header-item*/
-    --easy-table-header-item-padding: 0px 10px;
-    /*body-row*/
-    --easy-table-body-row-height: 36px;
-    --easy-table-body-row-font-size: 12px;
+:root {
+  /*table*/
+  --easy-table-border: 1px solid #e0e0e0;
+  --easy-table-row-border: 1px solid #e0e0e0;
+  /*header-row*/
+  --easy-table-header-font-size: 12px;
+  --easy-table-header-height: 36px;
+  --easy-table-header-font-color: #373737;
+  --easy-table-header-background-color: #fff;
+  /*header-item*/
+  --easy-table-header-item-padding: 0px 10px;
+  /*body-row*/
+  --easy-table-body-row-height: 36px;
+  --easy-table-body-row-font-size: 12px;
 
-    --easy-table-body-row-font-color: #212121;
-    --easy-table-body-row-background-color: #fff;
+  --easy-table-body-row-font-color: #212121;
+  --easy-table-body-row-background-color: #fff;
 
-    --easy-table-body-row-hover-font-color: #212121;
-    --easy-table-body-row-hover-background-color: #eee;
+  --easy-table-body-row-hover-font-color: #212121;
+  --easy-table-body-row-hover-background-color: #eee;
 
-    --easy-table-body-even-row-font-color: #212121;
-    --easy-table-body-even-row-background-color: #fafafa;
-    /*body-item*/
-    --easy-table-body-item-padding: 0px 10px;
-    /*footer*/
-    --easy-table-footer-background-color: #fff;
-    --easy-table-footer-font-color: #212121;
-    --easy-table-footer-font-size: 12px;
-    --easy-table-footer-padding: 0px 5px;
-    --easy-table-footer-height: 36px;
-    /*message*/
-    --easy-table-message-font-color: #212121;
-    --easy-table-message-font-size: 12px;
-    --easy-table-message-padding: 20px;
-    /*loading-mask*/
-    --easy-table-loading-mask-background-color: #fff;
-    --easy-table-loading-mask-opacity: 0.5;
-    /*scroll-bar*/
-    --easy-table-scrollbar-track-color: #fff;
-    --easy-table-scrollbar-color: #fff;
-    --easy-table-scrollbar-thumb-color: #c1c1c1;
-    --easy-table-scrollbar-corner-color: #fff;
-    /*buttons-pagination*/
-    --easy-table-buttons-pagination-border: 1px solid #e0e0e0;
-  }
+  --easy-table-body-even-row-font-color: #212121;
+  --easy-table-body-even-row-background-color: #fafafa;
+  /*body-item*/
+  --easy-table-body-item-padding: 0px 10px;
+  /*footer*/
+  --easy-table-footer-background-color: #fff;
+  --easy-table-footer-font-color: #212121;
+  --easy-table-footer-font-size: 12px;
+  --easy-table-footer-padding: 0px 5px;
+  --easy-table-footer-height: 36px;
+  /*message*/
+  --easy-table-message-font-color: #212121;
+  --easy-table-message-font-size: 12px;
+  --easy-table-message-padding: 20px;
+  /*loading-mask*/
+  --easy-table-loading-mask-background-color: #fff;
+  --easy-table-loading-mask-opacity: 0.5;
+  /*scroll-bar*/
+  --easy-table-scrollbar-track-color: #fff;
+  --easy-table-scrollbar-color: #fff;
+  --easy-table-scrollbar-thumb-color: #c1c1c1;
+  --easy-table-scrollbar-corner-color: #fff;
+  /*buttons-pagination*/
+  --easy-table-buttons-pagination-border: 1px solid #e0e0e0;
+}
 </style>
 
 <style lang="scss" scoped>
-@import '../scss/vue3-easy-data-table.scss';
+@import '../../../scss/vue3-easy-data-table.scss';
 
 .vue3-easy-data-table__main.fixed-height {
   height: v-bind(tableHeightPx);

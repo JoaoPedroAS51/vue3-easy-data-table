@@ -1,30 +1,50 @@
-/* eslint-disable */ 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import { resolve } from 'path';
+
+/* eslint-disable import/no-extraneous-dependencies */
+import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+/* eslint-enable import/no-extraneous-dependencies */
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: resolve(__dirname, 'src/index.ts'),
       name: 'vue3-easy-data-table',
       fileName: (format) => `vue3-easy-data-table.${format}.js`,
     },
     rollupOptions: {
       external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue',
+      treeshake: true,
+      output: [
+        {
+          format: 'umd',
+          // Provide global variables to use in the UMD build
+          // for externalized deps
+          exports: 'named',
+          globals: { vue: 'Vue' },
         },
-      },
+        {
+          format: 'es',
+          entryFileNames: '[name].js',
+          preserveModules: true,
+        },
+      ],
     },
   },
-  plugins: [vue()],
+  plugins: [
+    dts({
+      staticImport: true,
+      insertTypesEntry: true,
+      include: ['src/**/*.ts', 'src/**/*.vue', 'src/**/*.d.ts', 'types/**/*.ts'],
+    }),
+    vue(),
+  ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
-      '@src': path.resolve(__dirname, 'src'),
+      '@src': resolve(__dirname, 'src'),
     },
   },
 });

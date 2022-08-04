@@ -35,25 +35,20 @@
       @click-row="showItem"
     >
       <template #expand="item">
-        <div style="padding: 15px">
-          {{ item.name }} won championships
-        </div>
+        <div style="padding: 15px">{{ item.name }} won championships</div>
       </template>
 
       <template #header-name="header">
         <div class="filter-column">
           <span
             class="filter-icon"
-            @click.stop="showNameFilter=!showNameFilter"
+            @click.stop="showNameFilter = !showNameFilter"
           >
             icon
           </span>
           {{ header.text }}
-          <div
-            v-if="showNameFilter"
-            class="filter-menu filter-age-menu"
-          >
-            <input v-model="nameCriteria">
+          <div v-if="showNameFilter" class="filter-menu filter-age-menu">
+            <input v-model="nameCriteria" />
           </div>
         </div>
       </template>
@@ -61,31 +56,24 @@
 
     <div class="customize-footer">
       <div class="customize-index">
-        Now displaying: {{ currentPageFirstIndex }} ~ {{ currentPageLastIndex }} of {{ totalItemsLength }}
+        Now displaying: {{ currentPageFirstIndex }} ~
+        {{ currentPageLastIndex }} of {{ totalItemsLength }}
       </div>
       <div class="customize-buttons">
         <span
           v-for="paginationNumber in maxPaginationNumber"
           class="customize-button"
-          :class="{'active': paginationNumber === currentPaginationNumber}"
+          :class="{ active: paginationNumber === currentPaginationNumber }"
           @click="updatePage(paginationNumber)"
         >
           {{ paginationNumber }}
         </span>
       </div>
       <div class="customize-pagination">
-        <button
-          class="prev-page"
-          :disabled="isFirstPage"
-          @click="prevPage"
-        >
+        <button class="prev-page" :disabled="isFirstPage" @click="prevPage">
           prev page
         </button>
-        <button
-          class="next-page"
-          :disabled="isLastPage"
-          @click="nextPage"
-        >
+        <button class="next-page" :disabled="isLastPage" @click="nextPage">
           next page
         </button>
       </div>
@@ -94,41 +82,55 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed, ref, reactive, toRefs,
-} from 'vue';
+import { computed, ref, reactive, toRefs } from 'vue'
 import type {
-  Header, Item, FilterOption, ClickRowArgument, HeaderItemClassNameFunction, BodyItemClassNameFunction, BodyRowClassNameFunction,
-} from '../types/main';
-import DataTable from '../components/DataTable.vue';
-import { mockClientNestedItems, mockClientItems, mockDuplicateClientNestedItems } from '../mock';
+  Header,
+  Item,
+  FilterOption,
+  ClickRowArgument,
+  HeaderItemClassNameFunction,
+  BodyItemClassNameFunction,
+  BodyRowClassNameFunction,
+} from '../types/main'
+import DataTable from '../components/DataTable/src/DataTable.vue'
+import {
+  mockClientNestedItems,
+  mockClientItems,
+  mockDuplicateClientNestedItems,
+} from '../mock'
 
-const searchField = ref('name');
-const searchValue = ref('');
+const searchField = ref('name')
+const searchValue = ref('')
 
-const items = ref<Item[]>(mockDuplicateClientNestedItems(100));
+const items = ref<Item[]>(mockDuplicateClientNestedItems(100))
 
 const switchToNested300 = () => {
-  items.value = mockClientNestedItems(300);
-};
+  items.value = mockClientNestedItems(300)
+}
 
 const switchToNested = () => {
-  items.value = mockClientNestedItems(100);
-};
+  items.value = mockClientNestedItems(100)
+}
 
 const headers: Header[] = [
   { text: 'Name', value: 'name' },
   {
-    text: 'Address', value: 'address', width: 200, fixed: true,
+    text: 'Address',
+    value: 'address',
+    width: 200,
+    fixed: true,
   },
   { text: 'Height', value: 'info.out.height', sortable: true },
   { text: 'Weight', value: 'info.out.weight', sortable: true },
   {
-    text: 'Age', value: 'age', sortable: true, width: 200,
+    text: 'Age',
+    value: 'age',
+    sortable: true,
+    width: 200,
   },
   { text: 'Favourite sport', value: 'favouriteSport', width: 200 },
   { text: 'Favourite fruits', value: 'favouriteFruits', width: 200 },
-];
+]
 
 // const headers: Header[] = [
 //   { text: 'Name', value: 'name'},
@@ -140,20 +142,20 @@ const headers: Header[] = [
 //   { text: 'Favourite fruits', value: 'favouriteFruits'},
 // ];
 
-const itemsSelected = ref<Item[]>([items.value[14]]);
+const itemsSelected = ref<Item[]>([items.value[14]])
 
 const showItem = (item: ClickRowArgument) => {
-  console.log('item');
-  console.log(JSON.stringify(item));
-};
+  console.log('item')
+  console.log(JSON.stringify(item))
+}
 // filtering
 
-const ageCriteria = ref<[number, number]>([1, 15]);
+const ageCriteria = ref<[number, number]>([1, 15])
 
-const favouriteSportCriteria = ref('all');
+const favouriteSportCriteria = ref('all')
 
-const showNameFilter = ref(false);
-const nameCriteria = ref('');
+const showNameFilter = ref(false)
+const nameCriteria = ref('')
 
 // const filterOptions = computed((): FilterOption[] => {
 //   const filterOptionsArray: FilterOption[] = [];
@@ -177,33 +179,48 @@ const nameCriteria = ref('');
 //   });
 //   return filterOptionsArray;
 // });
-const bodyRowClassNameFunction: BodyRowClassNameFunction = (item: Item, index: number): string => (index === 0 ? 'first-row test-row' : '');
-const headerItemClassNameFunction: HeaderItemClassNameFunction = (header: Header, index: number): string => (header.value === 'name' ? 'name-header' : '');
-const bodyItemClassNameFunction: BodyItemClassNameFunction = (column: string, index: number): string => (column === 'name' ? 'name-item' : '');
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  index: number
+): string => (index === 0 ? 'first-row test-row' : '')
+const headerItemClassNameFunction: HeaderItemClassNameFunction = (
+  header: Header,
+  index: number
+): string => (header.value === 'name' ? 'name-header' : '')
+const bodyItemClassNameFunction: BodyItemClassNameFunction = (
+  column: string,
+  index: number
+): string => (column === 'name' ? 'name-item' : '')
 // $ref dataTable
-const dataTable = ref();
+const dataTable = ref()
 
 // index related
-const currentPageFirstIndex = computed(() => dataTable.value?.currentPageFirstIndex);
-const currentPageLastIndex = computed(() => dataTable.value?.currentPageLastIndex);
-const totalItemsLength = computed(() => dataTable.value?.totalItemsLength);
+const currentPageFirstIndex = computed(
+  () => dataTable.value?.currentPageFirstIndex
+)
+const currentPageLastIndex = computed(
+  () => dataTable.value?.currentPageLastIndex
+)
+const totalItemsLength = computed(() => dataTable.value?.totalItemsLength)
 
 // paginations related
-const maxPaginationNumber = computed(() => dataTable.value?.maxPaginationNumber);
-const currentPaginationNumber = computed(() => dataTable.value?.currentPaginationNumber);
+const maxPaginationNumber = computed(() => dataTable.value?.maxPaginationNumber)
+const currentPaginationNumber = computed(
+  () => dataTable.value?.currentPaginationNumber
+)
 
-const isFirstPage = computed(() => dataTable.value?.isFirstPage);
-const isLastPage = computed(() => dataTable.value?.isLastPage);
+const isFirstPage = computed(() => dataTable.value?.isFirstPage)
+const isLastPage = computed(() => dataTable.value?.isLastPage)
 
 const nextPage = () => {
-  dataTable.value.nextPage();
-};
+  dataTable.value.nextPage()
+}
 const prevPage = () => {
-  dataTable.value.prevPage();
-};
+  dataTable.value.prevPage()
+}
 const updatePage = (paginationNumber: number) => {
-  dataTable.value.updatePage(paginationNumber);
-};
+  dataTable.value.updatePage(paginationNumber)
+}
 </script>
 
 <style scoped>
@@ -281,5 +298,4 @@ const updatePage = (paginationNumber: number) => {
 
   --easy-table-loading-mask-background-color: #2d3a4f;
 }
-
 </style>
