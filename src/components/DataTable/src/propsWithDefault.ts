@@ -2,7 +2,7 @@ import { PropType } from 'vue';
 import type {
   SortType, Item, ServerOptions, FilterOption,
   HeaderItemClassNameFunction, BodyItemClassNameFunction, BodyRowClassNameFunction,
-} from './types/main';
+} from '@/types/main';
 
 export default {
   alternating: {

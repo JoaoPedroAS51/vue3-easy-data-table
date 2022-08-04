@@ -269,7 +269,7 @@ import type { HeaderForRender } from '@/types/internal';
 
 // eslint-disable-next-line import/extensions
 import { generateColumnContent } from '@/utils';
-import propsWithDefault from '@/propsWithDefault';
+import propsWithDefault from './propsWithDefault';
 
 const props = defineProps({
   ...propsWithDefault,
