@@ -17,7 +17,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { defineComponent, useCssVars, unref, toRefs, computed, provide, useSlots, ref, onMounted, watch, openBlock, createElementBlock, normalizeClass, createElementVNode, Fragment, renderList, normalizeStyle, withModifiers, createBlock, renderSlot, normalizeProps, mergeProps, toDisplayString, createCommentVNode, createTextVNode, guardReactiveProps, createVNode, isRef, createSlots, withCtx, pushScopeId, popScopeId } from "vue";
+import { defineComponent, useCssVars, unref, toRefs, computed, provide, useSlots, ref, onMounted, watch, openBlock, createElementBlock, normalizeClass, createElementVNode, Fragment, renderList, normalizeStyle, withModifiers, createBlock, renderSlot, normalizeProps, guardReactiveProps, toDisplayString, createCommentVNode, mergeProps, createTextVNode, createVNode, isRef, createSlots, withCtx, pushScopeId, popScopeId } from "vue";
 import MultipleSelectCheckBox from "../../MultipleSelectCheckBox/src/MultipleSelectCheckBox.js";
 import SingleSelectCheckBox from "../../SingleSelectCheckBox/src/SingleSelectCheckBox.js";
 import RowsSelector from "../../RowsSelector/src/RowsSelector.js";
@@ -39,16 +39,13 @@ import propsWithDefault from "./propsWithDefault.js";
 import "./DataTable.vue_vue_type_style_index_0_lang.js";
 import "./DataTable.vue_vue_type_style_index_1_scoped_true_lang.js";
 import _export_sfc from "../../../_virtual/plugin-vue_export-helper.js";
-const _withScopeId = (n) => (pushScopeId("data-v-08dc8404"), n = n(), popScopeId(), n);
+const _withScopeId = (n) => (pushScopeId("data-v-0483e50e"), n = n(), popScopeId(), n);
 const _hoisted_1 = ["onClick"];
 const _hoisted_2 = {
   key: 1,
   class: "header"
 };
-const _hoisted_3 = {
-  key: 1,
-  class: "header-text"
-};
+const _hoisted_3 = { class: "header-text" };
 const _hoisted_4 = ["onClick"];
 const _hoisted_5 = ["onClick"];
 const _hoisted_6 = ["colspan"];
@@ -92,7 +89,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
   setup(__props, { expose, emit: emits }) {
     const props = __props;
     useCssVars((_ctx) => ({
-      "113cccc0": unref(tableHeightPx)
+      "6f1888a3": unref(tableHeightPx)
     }));
     const {
       checkboxColumnWidth,
@@ -123,8 +120,6 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     const tableHeightPx = computed(() => tableHeight.value ? `${tableHeight.value}px` : null);
     provide("themeColor", themeColor.value);
     const slots = useSlots();
-    const ifHasPaginationSlot = computed(() => !!slots.pagination);
-    const ifHasLoadingSlot = computed(() => !!slots.loading);
     const ifHasExpandSlot = computed(() => !!slots.expand);
     const dataTable = ref();
     const tableBody = ref();
@@ -280,7 +275,9 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                       status: unref(multipleSelectStatus),
                       onChange: unref(toggleSelectAll)
                     }, null, 8, ["status", "onChange"])) : (openBlock(), createElementBlock("span", _hoisted_2, [
-                      unref(slots)[`header-${header.value}`] ? renderSlot(_ctx.$slots, `header-${header.value}`, normalizeProps(mergeProps({ key: 0 }, header)), void 0, true) : (openBlock(), createElementBlock("span", _hoisted_3, toDisplayString(header.text), 1)),
+                      renderSlot(_ctx.$slots, `header-${header.value}`, normalizeProps(guardReactiveProps(header)), () => [
+                        createElementVNode("span", _hoisted_3, toDisplayString(header.text), 1)
+                      ], true),
                       header.sortable ? (openBlock(), createElementBlock("i", {
                         key: header.sortType ? header.sortType : "none",
                         class: normalizeClass(["sortType-icon", { desc: header.sortType === "desc" }])
@@ -353,50 +350,65 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           unref(loading) ? (openBlock(), createElementBlock("div", _hoisted_7, [
             _hoisted_8,
             createElementVNode("div", _hoisted_9, [
-              unref(ifHasLoadingSlot) ? renderSlot(_ctx.$slots, "loading", { key: 0 }, void 0, true) : (openBlock(), createBlock(Loading, { key: 1 }))
+              renderSlot(_ctx.$slots, "loading", {}, () => [
+                createVNode(Loading)
+              ], true)
             ])
           ])) : createCommentVNode("", true),
-          !unref(pageItems).length && !unref(loading) ? (openBlock(), createElementBlock("div", _hoisted_10, toDisplayString(_ctx.emptyMessage), 1)) : createCommentVNode("", true)
+          !unref(pageItems).length && !unref(loading) ? (openBlock(), createElementBlock("div", _hoisted_10, [
+            renderSlot(_ctx.$slots, "emptyMessage", normalizeProps(guardReactiveProps({ emptyMessage: _ctx.emptyMessage })), () => [
+              createTextVNode(toDisplayString(_ctx.emptyMessage), 1)
+            ], true)
+          ])) : createCommentVNode("", true)
         ], 2),
         !_ctx.hideFooter ? (openBlock(), createElementBlock("div", _hoisted_11, [
-          !_ctx.hideRowsPerPage ? (openBlock(), createElementBlock("div", _hoisted_12, [
-            createTextVNode(toDisplayString(_ctx.rowsPerPageMessage) + " ", 1),
-            createVNode(RowsSelector, {
-              modelValue: unref(rowsPerPageRef),
-              "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => isRef(rowsPerPageRef) ? rowsPerPageRef.value = $event : null),
-              "rows-items": unref(rowsItemsComputed)
-            }, null, 8, ["modelValue", "rows-items"])
-          ])) : createCommentVNode("", true),
-          createElementVNode("div", _hoisted_13, toDisplayString(`${unref(currentPageFirstIndex)}\u2013${unref(currentPageLastIndex)}`) + " of " + toDisplayString(unref(totalItemsLength)), 1),
-          unref(ifHasPaginationSlot) ? renderSlot(_ctx.$slots, "pagination", normalizeProps(mergeProps({ key: 1 }, {
-            isFirstPage: unref(isFirstPage),
-            isLastPage: unref(isLastPage),
-            currentPaginationNumber: unref(currentPaginationNumber),
-            maxPaginationNumber: unref(maxPaginationNumber),
-            nextPage: unref(nextPage),
-            prevPage: unref(prevPage)
-          })), void 0, true) : (openBlock(), createBlock(PaginationArrows, {
-            key: 2,
-            "is-first-page": unref(isFirstPage),
-            "is-last-page": unref(isLastPage),
-            onClickNextPage: unref(nextPage),
-            onClickPrevPage: unref(prevPage)
-          }, createSlots({ _: 2 }, [
-            _ctx.buttonsPagination ? {
-              name: "buttonsPagination",
-              fn: withCtx(() => [
-                createVNode(ButtonsPagination, {
-                  "current-pagination-number": unref(currentPaginationNumber),
-                  "max-pagination-number": unref(maxPaginationNumber),
-                  onUpdatePage: unref(updatePage)
-                }, null, 8, ["current-pagination-number", "max-pagination-number", "onUpdatePage"])
-              ])
-            } : void 0
-          ]), 1032, ["is-first-page", "is-last-page", "onClickNextPage", "onClickPrevPage"]))
+          renderSlot(_ctx.$slots, "footer", {}, () => [
+            !_ctx.hideRowsPerPage ? (openBlock(), createElementBlock("div", _hoisted_12, [
+              renderSlot(_ctx.$slots, "rowsPerPage", normalizeProps(guardReactiveProps({ rowsPerPageMessage: _ctx.rowsPerPageMessage, rowsPerPageRef: unref(rowsPerPageRef), rowsItemsComputed: unref(rowsItemsComputed) })), () => [
+                createTextVNode(toDisplayString(_ctx.rowsPerPageMessage) + " ", 1),
+                createVNode(RowsSelector, {
+                  modelValue: unref(rowsPerPageRef),
+                  "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => isRef(rowsPerPageRef) ? rowsPerPageRef.value = $event : null),
+                  "rows-items": unref(rowsItemsComputed)
+                }, null, 8, ["modelValue", "rows-items"])
+              ], true)
+            ])) : createCommentVNode("", true),
+            createElementVNode("div", _hoisted_13, [
+              renderSlot(_ctx.$slots, "itemsIndex", normalizeProps(guardReactiveProps({ currentPageFirstIndex: unref(currentPageFirstIndex), currentPageLastIndex: unref(currentPageLastIndex), totalItemsLength: unref(totalItemsLength) })), () => [
+                createTextVNode(toDisplayString(`${unref(currentPageFirstIndex)}\u2013${unref(currentPageLastIndex)}`) + " of " + toDisplayString(unref(totalItemsLength)), 1)
+              ], true)
+            ]),
+            renderSlot(_ctx.$slots, "pagination", normalizeProps(guardReactiveProps({
+              isFirstPage: unref(isFirstPage),
+              isLastPage: unref(isLastPage),
+              currentPaginationNumber: unref(currentPaginationNumber),
+              maxPaginationNumber: unref(maxPaginationNumber),
+              nextPage: unref(nextPage),
+              prevPage: unref(prevPage)
+            })), () => [
+              createVNode(PaginationArrows, {
+                "is-first-page": unref(isFirstPage),
+                "is-last-page": unref(isLastPage),
+                onClickNextPage: unref(nextPage),
+                onClickPrevPage: unref(prevPage)
+              }, createSlots({ _: 2 }, [
+                _ctx.buttonsPagination ? {
+                  name: "buttonsPagination",
+                  fn: withCtx(() => [
+                    createVNode(ButtonsPagination, {
+                      "current-pagination-number": unref(currentPaginationNumber),
+                      "max-pagination-number": unref(maxPaginationNumber),
+                      onUpdatePage: unref(updatePage)
+                    }, null, 8, ["current-pagination-number", "max-pagination-number", "onUpdatePage"])
+                  ])
+                } : void 0
+              ]), 1032, ["is-first-page", "is-last-page", "onClickNextPage", "onClickPrevPage"])
+            ], true)
+          ], true)
         ])) : createCommentVNode("", true)
       ], 2);
     };
   }
 });
-var DataTable = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-08dc8404"]]);
+var DataTable = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-0483e50e"]]);
 export { DataTable as default };

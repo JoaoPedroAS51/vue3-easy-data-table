@@ -341,8 +341,6 @@ declare const _sfc_main: DefineComponent<{
     slots: Readonly<{
         [name: string]: Slot | undefined;
     }>;
-    ifHasPaginationSlot: ComputedRef<boolean>;
-    ifHasLoadingSlot: ComputedRef<boolean>;
     ifHasExpandSlot: ComputedRef<boolean>;
     dataTable: Ref<any>;
     tableBody: Ref<any>;
