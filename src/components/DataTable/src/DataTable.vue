@@ -39,7 +39,7 @@
                 'desc': header.sortable && header.sortType === 'desc',
                 'asc': header.sortable && header.sortType === 'asc',
                 'shadow': header.value === lastFixedColumn,
-              // eslint-disable-next-line max-len
+                // eslint-disable-next-line max-len
               }, typeof headerItemClassName === 'string' ? headerItemClassName : headerItemClassName(header as Header, index)]"
               :style="getFixedDistance(header.value)"
               @click.stop="
@@ -59,22 +59,18 @@
                 class="header"
               >
                 <slot
-                  v-if="slots[`header-${header.value}`]"
                   :name="`header-${header.value}`"
                   v-bind="header"
-                />
-                <span
-                  v-else
-                  class="header-text"
                 >
-                  {{ header.text }}
-                </span>
+                  <span class="header-text"> {{ header.text }} </span>
+                </slot>
+
                 <i
                   v-if="header.sortable"
                   :key="header.sortType ? header.sortType : 'none'"
                   class="sortType-icon"
                   :class="{ desc: header.sortType === 'desc' }"
-                ></i>
+                />
               </span>
             </th>
           </tr>
@@ -165,13 +161,14 @@
         v-if="loading"
         class="vue3-easy-data-table__loading"
       >
-        <div class="vue3-easy-data-table__loading-mask"></div>
+        <div class="vue3-easy-data-table__loading-mask"/>
         <div class="loading-entity">
           <slot
-            v-if="ifHasLoadingSlot"
+
             name="loading"
-          />
-          <Loading v-else></Loading>
+          >
+            <Loading />
+          </slot>
         </div>
       </div>
 
@@ -179,57 +176,73 @@
         v-if="!pageItems.length && !loading"
         class="vue3-easy-data-table__message"
       >
-        {{ emptyMessage }}
+        <slot
+          name="emptyMessage"
+          v-bind="{ emptyMessage }"
+        >
+          {{ emptyMessage }}
+        </slot>
       </div>
     </div>
     <div
       v-if="!hideFooter"
       class="vue3-easy-data-table__footer"
     >
-      <div
-        v-if="!hideRowsPerPage"
-        class="pagination__rows-per-page"
-      >
-        {{ rowsPerPageMessage }}
-        <RowsSelector
-          v-model="rowsPerPageRef"
-          :rows-items="rowsItemsComputed"
-        />
-      </div>
-      <div class="pagination__items-index">
-        {{ `${currentPageFirstIndex}–${currentPageLastIndex}` }}
-        of {{ totalItemsLength }}
-      </div>
-      <slot
-        v-if="ifHasPaginationSlot"
-        name="pagination"
-        v-bind="{
-          isFirstPage,
-          isLastPage,
-          currentPaginationNumber,
-          maxPaginationNumber,
-          nextPage,
-          prevPage,
-        }"
-      />
-      <PaginationArrows
-        v-else
-        :is-first-page="isFirstPage"
-        :is-last-page="isLastPage"
-        @click-next-page="nextPage"
-        @click-prev-page="prevPage"
-      >
-        <template
-          v-if="buttonsPagination"
-          #buttonsPagination
+      <slot name="footer">
+        <div
+          v-if="!hideRowsPerPage"
+          class="pagination__rows-per-page"
         >
-          <ButtonsPagination
-            :current-pagination-number="currentPaginationNumber"
-            :max-pagination-number="maxPaginationNumber"
-            @update-page="updatePage"
-          />
-        </template>
-      </PaginationArrows>
+          <slot
+            name="rowsPerPage"
+            v-bind="{ rowsPerPageMessage, rowsPerPageRef, rowsItemsComputed }"
+          >
+            {{ rowsPerPageMessage }}
+            <RowsSelector
+              v-model="rowsPerPageRef"
+              :rows-items="rowsItemsComputed"
+            />
+          </slot>
+        </div>
+        <div class="pagination__items-index">
+          <slot
+            name="itemsIndex"
+            v-bind="{ currentPageFirstIndex, currentPageLastIndex, totalItemsLength }"
+          >
+            {{ `${currentPageFirstIndex}–${currentPageLastIndex}` }}
+            of {{ totalItemsLength }}
+          </slot>
+        </div>
+        <slot
+          name="pagination"
+          v-bind="{
+            isFirstPage,
+            isLastPage,
+            currentPaginationNumber,
+            maxPaginationNumber,
+            nextPage,
+            prevPage,
+          }"
+        >
+          <PaginationArrows
+            :is-first-page="isFirstPage"
+            :is-last-page="isLastPage"
+            @click-next-page="nextPage"
+            @click-prev-page="prevPage"
+          >
+            <template
+              v-if="buttonsPagination"
+              #buttonsPagination
+            >
+              <ButtonsPagination
+                :current-pagination-number="currentPaginationNumber"
+                :max-pagination-number="maxPaginationNumber"
+                @update-page="updatePage"
+              />
+            </template>
+          </PaginationArrows>
+        </slot>
+      </slot>
     </div>
   </div>
 </template>
@@ -318,8 +331,6 @@ provide('themeColor', themeColor.value);
 
 // slot
 const slots = useSlots();
-const ifHasPaginationSlot = computed(() => !!slots.pagination);
-const ifHasLoadingSlot = computed(() => !!slots.loading);
 const ifHasExpandSlot = computed(() => !!slots.expand);
 
 // global dataTable $ref
@@ -568,4 +579,3 @@ defineExpose({
   height: v-bind(tableHeightPx);
 }
 </style>
-
