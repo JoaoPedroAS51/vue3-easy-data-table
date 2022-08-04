@@ -1,4 +1,5 @@
 import { PropType } from 'vue';
+import type { SortType, Item, ServerOptions, FilterOption, HeaderItemClassNameFunction, BodyItemClassNameFunction, BodyRowClassNameFunction } from '../../../types/main';
 declare const _default: {
     alternating: {
         type: BooleanConstructor;
@@ -121,15 +122,15 @@ declare const _default: {
         default: string;
     };
     headerItemClassName: {
-        type: PropType<any>;
+        type: PropType<string | HeaderItemClassNameFunction>;
         default: string;
     };
     bodyRowClassName: {
-        type: PropType<any>;
+        type: PropType<string | BodyRowClassNameFunction>;
         default: string;
     };
     bodyItemClassName: {
-        type: PropType<any>;
+        type: PropType<string | BodyItemClassNameFunction>;
         default: string;
     };
     noHover: {

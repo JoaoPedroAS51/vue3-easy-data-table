@@ -26,7 +26,7 @@ declare const _sfc_main: DefineComponent<{
     onClickPrevPage?: ((...args: any[]) => any) | undefined;
     onClickNextPage?: ((...args: any[]) => any) | undefined;
 }, {
-    isFirstPage: boolean;
     isLastPage: boolean;
+    isFirstPage: boolean;
 }>;
 export default _sfc_main;

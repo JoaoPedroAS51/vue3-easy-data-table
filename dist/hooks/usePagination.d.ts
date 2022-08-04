@@ -1,7 +1,7 @@
 import { Ref, ComputedRef } from 'vue';
 import type { ServerOptions } from '../types/main';
 export default function usePagination(isServerSideMode: ComputedRef<boolean>, loading: Ref<boolean>, totalItemsLength: Ref<number>, rowsPerPage: Ref<number>, serverOptions: Ref<ServerOptions | null>, updateServerOptionsPage: (page: number) => void): {
-    currentPaginationNumber: any;
+    currentPaginationNumber: Ref<number>;
     maxPaginationNumber: ComputedRef<number>;
     isLastPage: ComputedRef<boolean>;
     isFirstPage: ComputedRef<boolean>;
