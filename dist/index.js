@@ -1,0 +1,28 @@
+import { EasyDataTable } from "./components/DataTable/index.js";
+export { EasyDataTable } from "./components/DataTable/index.js";
+import { EasyDataTablePaginationArrows } from "./components/PaginationArrows/index.js";
+export { EasyDataTablePaginationArrows } from "./components/PaginationArrows/index.js";
+import { EasyDataTableButtonsPagination } from "./components/ButtonsPagination/index.js";
+export { EasyDataTableButtonsPagination } from "./components/ButtonsPagination/index.js";
+import { EasyDataTableRowsSelector } from "./components/RowsSelector/index.js";
+export { EasyDataTableRowsSelector } from "./components/RowsSelector/index.js";
+import { EasyDataTableSingleSelectCheckBox } from "./components/SingleSelectCheckBox/index.js";
+export { EasyDataTableSingleSelectCheckBox } from "./components/SingleSelectCheckBox/index.js";
+import { EasyDataTableMultipleSelectCheckBox } from "./components/MultipleSelectCheckBox/index.js";
+export { EasyDataTableMultipleSelectCheckBox } from "./components/MultipleSelectCheckBox/index.js";
+import { EasyDataTableLoading } from "./components/Loading/index.js";
+export { EasyDataTableLoading } from "./components/Loading/index.js";
+import { EasyDataTableLoadingLine } from "./components/LoadingLine/index.js";
+export { EasyDataTableLoadingLine } from "./components/LoadingLine/index.js";
+const install = (app) => {
+  app.use(EasyDataTable);
+  app.use(EasyDataTablePaginationArrows);
+  app.use(EasyDataTableButtonsPagination);
+  app.use(EasyDataTableRowsSelector);
+  app.use(EasyDataTableSingleSelectCheckBox);
+  app.use(EasyDataTableMultipleSelectCheckBox);
+  app.use(EasyDataTableLoading);
+  app.use(EasyDataTableLoadingLine);
+};
+var index = { install };
+export { index as default };
