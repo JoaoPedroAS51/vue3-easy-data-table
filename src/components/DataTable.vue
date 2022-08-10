@@ -169,7 +169,23 @@
       v-if="!hideFooter"
       class="vue3-easy-data-table__footer"
     >
-      <slot name="footer">
+      <slot
+        name="footer"
+        v-bind="{
+          rowsPerPageMessage,
+          rowsPerPageRef,
+          rowsItemsComputed,
+          isFirstPage,
+          isLastPage,
+          currentPaginationNumber,
+          maxPaginationNumber,
+          nextPage,
+          prevPage,
+          currentPageFirstIndex,
+          currentPageLastIndex,
+          totalItemsLength
+        }"
+      >
         <div
           v-if="!hideRowsPerPage"
           class="pagination__rows-per-page"
