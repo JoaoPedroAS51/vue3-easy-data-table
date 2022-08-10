@@ -39,7 +39,7 @@ import propsWithDefault from "./propsWithDefault.js";
 import "./DataTable.vue_vue_type_style_index_0_lang.js";
 import "./DataTable.vue_vue_type_style_index_1_scoped_true_lang.js";
 import _export_sfc from "../../../_virtual/plugin-vue_export-helper.js";
-const _withScopeId = (n) => (pushScopeId("data-v-0483e50e"), n = n(), popScopeId(), n);
+const _withScopeId = (n) => (pushScopeId("data-v-e2e2ca6a"), n = n(), popScopeId(), n);
 const _hoisted_1 = ["onClick"];
 const _hoisted_2 = {
   key: 1,
@@ -89,7 +89,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
   setup(__props, { expose, emit: emits }) {
     const props = __props;
     useCssVars((_ctx) => ({
-      "6f1888a3": unref(tableHeightPx)
+      "554cb9c4": unref(tableHeightPx)
     }));
     const {
       checkboxColumnWidth,
@@ -362,7 +362,20 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           ])) : createCommentVNode("", true)
         ], 2),
         !_ctx.hideFooter ? (openBlock(), createElementBlock("div", _hoisted_11, [
-          renderSlot(_ctx.$slots, "footer", {}, () => [
+          renderSlot(_ctx.$slots, "footer", normalizeProps(guardReactiveProps({
+            rowsPerPageMessage: _ctx.rowsPerPageMessage,
+            rowsPerPageRef: unref(rowsPerPageRef),
+            rowsItemsComputed: unref(rowsItemsComputed),
+            isFirstPage: unref(isFirstPage),
+            isLastPage: unref(isLastPage),
+            currentPaginationNumber: unref(currentPaginationNumber),
+            maxPaginationNumber: unref(maxPaginationNumber),
+            nextPage: unref(nextPage),
+            prevPage: unref(prevPage),
+            currentPageFirstIndex: unref(currentPageFirstIndex),
+            currentPageLastIndex: unref(currentPageLastIndex),
+            totalItemsLength: unref(totalItemsLength)
+          })), () => [
             !_ctx.hideRowsPerPage ? (openBlock(), createElementBlock("div", _hoisted_12, [
               renderSlot(_ctx.$slots, "rowsPerPage", normalizeProps(guardReactiveProps({ rowsPerPageMessage: _ctx.rowsPerPageMessage, rowsPerPageRef: unref(rowsPerPageRef), rowsItemsComputed: unref(rowsItemsComputed) })), () => [
                 createTextVNode(toDisplayString(_ctx.rowsPerPageMessage) + " ", 1),
@@ -410,5 +423,5 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-var DataTable = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-0483e50e"]]);
+var DataTable = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-e2e2ca6a"]]);
 export { DataTable as default };
